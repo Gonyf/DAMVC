@@ -1,6 +1,6 @@
 using System;
 
-namespace UdemyTutMVC.Models
+namespace DAMVC.Models
 {
     public class ErrorViewModel
     {

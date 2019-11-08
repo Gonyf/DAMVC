@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using UdemyTutMVC.Models;
+using DAMVC.Models;
 
-namespace UdemyTutMVC.Controllers
+namespace DAMVC.Controllers
 {
     public class HomeController : Controller
     {
