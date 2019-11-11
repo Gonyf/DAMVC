@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DAMVC.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,10 +8,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAMVC.Controllers
 {
     // /api/values
-    [Authorize]
     [Route("api/[controller]")]
-    [ApiController]
-    public class ValuesController : ControllerBase
+    [AutoValidateAntiforgeryToken]
+    public class ValuesController : Controller
     {
         private readonly DataContext _context;
         public ValuesController(DataContext context)
@@ -20,6 +20,7 @@ namespace DAMVC.Controllers
         }
         // GET api/values
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetValues()
         {
             var values = await _context.Values.ToListAsync();
