@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace DAMVC.Controllers
 {
     [Route("[controller]")]
-    //[ApiController]
     public class AuthController : Controller
     {
         private readonly IConfiguration _configuration;

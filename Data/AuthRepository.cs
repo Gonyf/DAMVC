@@ -6,7 +6,6 @@ using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {
-    [SuppressMessage("ReSharper", "ConvertToUsingDeclaration")]
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
