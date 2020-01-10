@@ -110,7 +110,7 @@ namespace DAMVC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionToken);
             HttpContext.Session.SetString("JWToken", sessionToken);
 
-            return Ok(client.DefaultRequestHeaders.Authorization.Parameter + client.DefaultRequestHeaders.Authorization.Scheme);
+            return RedirectToActionPermanent("Index","Home");
         }
         private void AddErrorsFromModel(ModelStateDictionary.ValueEnumerable values)
         {
