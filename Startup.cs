@@ -4,6 +4,7 @@ using DAMVC.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +38,7 @@ namespace DAMVC
                         ValidateAudience = false
                     };
                 });
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -55,6 +57,17 @@ namespace DAMVC
                 //app.UseHsts();
             }
 
+            app.UseSession();
+
+            app.Use(async (context, next) =>
+            {
+                var JWToken = context.Session.GetString("JWToken");
+                if (!string.IsNullOrEmpty(JWToken))
+                {
+                    context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
+                }
+                await next();
+            });
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

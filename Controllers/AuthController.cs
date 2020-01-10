@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using DAMVC.Data;
 using DAMVC.DTO;
 using DAMVC.Models;
-using DAMVC.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -101,13 +101,16 @@ namespace DAMVC.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            tokenHandler.WriteToken(token);
+            //tokenHandler.WriteToken(token);
 
             var client = new HttpClient();
-            
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenHandler.WriteToken(token));
 
-            return Ok();
+            var sessionToken = tokenHandler.WriteToken(token);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionToken);
+            HttpContext.Session.SetString("JWToken", sessionToken);
+
+            return Ok(client.DefaultRequestHeaders.Authorization.Parameter + client.DefaultRequestHeaders.Authorization.Scheme);
         }
         private void AddErrorsFromModel(ModelStateDictionary.ValueEnumerable values)
         {

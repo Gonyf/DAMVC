@@ -9,7 +9,7 @@ namespace DAMVC.Controllers
 {
     // /api/values
     [Route("api/[controller]")]
-    [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class ValuesController : Controller
     {
         private readonly DataContext _context;
@@ -20,7 +20,6 @@ namespace DAMVC.Controllers
         }
         // GET api/values
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetValues()
         {
             var values = await _context.Values.ToListAsync();
