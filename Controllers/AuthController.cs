@@ -53,16 +53,11 @@ namespace DAMVC.Controllers
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDto)
         {
             // validate request
+            CustomRegisterValidation(userForRegisterDto);
             if (!ModelState.IsValid)
                 return View();
 
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _repo.UserExists(userForRegisterDto.Username))
-            {
-                ModelState.AddModelError("UserName", "User name is already taken");
-                return View();
-            }
 
             var userToCreate = new User
             {
@@ -125,6 +120,15 @@ namespace DAMVC.Controllers
             {
                 ModelState.AddModelError(string.Empty, error.ErrorMessage);
             }
+        }
+
+        private async void CustomRegisterValidation(UserForRegisterDTO userForRegisterDto)
+        {
+            if (string.IsNullOrEmpty(userForRegisterDto.Username))
+                return;
+
+            if (await _repo.UserExists(userForRegisterDto.Username.ToLower()))
+                ModelState.AddModelError("UserName", "User name is already taken");
         }
     }
 }
