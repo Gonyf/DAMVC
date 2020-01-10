@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using DAMVC.Models;
+using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {

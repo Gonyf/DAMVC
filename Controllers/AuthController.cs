@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAMVC.Data;
 using DAMVC.DTO;
-using DAMVC.Models;
+using DAMVC.Models.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -110,7 +110,7 @@ namespace DAMVC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionToken);
             HttpContext.Session.SetString("JWToken", sessionToken);
 
-            return RedirectToActionPermanent("Index","Home");
+            return RedirectToActionPermanent("Index","User");
         }
         private void AddErrorsFromModel(ModelStateDictionary.ValueEnumerable values)
         {
