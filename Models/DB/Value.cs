@@ -1,4 +1,4 @@
-namespace DAMVC.Models
+namespace DAMVC.Models.DB
 {
     public class Value
     {

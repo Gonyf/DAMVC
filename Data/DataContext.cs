@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using DAMVC.Models;
+using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {

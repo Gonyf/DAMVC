@@ -1,6 +1,6 @@
 using System;
 
-namespace DAMVC.Models
+namespace DAMVC.ViewModels
 {
     public class ErrorViewModel
     {
