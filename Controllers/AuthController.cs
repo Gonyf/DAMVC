@@ -36,6 +36,13 @@ namespace DAMVC.Controllers
             return View();
         }
 
+        [HttpGet("Logoff")]
+        public IActionResult Logoff()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("~/Home/Index");
+        }
+
         [HttpGet("Register")]
         public IActionResult Register()
         {
@@ -72,7 +79,7 @@ namespace DAMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //AddErrorsFromModel(ModelState.Values);
+                AddErrorsFromModel(ModelState.Values);
                 return View();
             }
             userForLoginDto.Username = userForLoginDto.Username.ToLower();
@@ -116,13 +123,8 @@ namespace DAMVC.Controllers
         {
             foreach (var error in values.SelectMany(modelState => modelState.Errors))
             {
-                ModelState.AddModelError(string.Empty, error.ErrorMessage.ToString());
+                ModelState.AddModelError(string.Empty, error.ErrorMessage);
             }
-        }
-
-        private void AddError(string errorMessage)
-        {
-            ModelState.AddModelError("UserName", errorMessage);
         }
     }
 }
