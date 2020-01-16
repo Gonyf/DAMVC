@@ -12,6 +12,7 @@ namespace DAMVC.Data
         IEnumerable<BeerDTO> List();
         Task<BeerDTO> Create(BeerDTO beer);
         Task<bool> Delete(int beerId);
-        Task<BeerDTO> Update(BeerDTO beer);
+        void Update(BeerDTO beer);
+		Task<BeerDTO> Get(int id);
     }
 }

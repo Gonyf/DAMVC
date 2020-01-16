@@ -25,10 +25,20 @@ namespace DAMVC.Controllers
         }
 
         [HttpGet("Edit")]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+			var beer = await _repo.Get(id);
+            return View(beer);
+        }        
+  
+		[HttpPost("Edit")]
+        public async Task<IActionResult> Edit(BeerDTO beer)
+        {
+			_repo.Update(beer);
+            return RedirectToActionPermanent("Details", beer);
         }
+
+
         
         [HttpGet("Details")]
         public IActionResult Details(BeerDTO beer)
@@ -52,7 +62,7 @@ namespace DAMVC.Controllers
         public async Task<IActionResult> Create(BeerDTO beer)
         {
             await _repo.Create(beer);
-            return View(RedirectToActionPermanent("Details","Beer", beer));
+            return RedirectToActionPermanent("Details","Beer", beer);
         }
     }
 }
