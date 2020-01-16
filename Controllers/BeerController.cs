@@ -37,19 +37,26 @@ namespace DAMVC.Controllers
 			_repo.Update(beer);
             return RedirectToActionPermanent("Details", beer);
         }
-
-
         
         [HttpGet("Details")]
-        public IActionResult Details(BeerDTO beer)
+        public async Task<IActionResult> Details(int id)
         {
+			var beer = await _repo.Get(id);
             return View(beer);
         }
         
         [HttpGet("Delete")]
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+			var beer = await _repo.Get(id);
+            return View(beer);
+        }
+
+		[HttpPost("Delete")]
+		public IActionResult Delete(BeerDTO beerDTO)
+        {
+			_repo.Delete(beerDTO);
+			return RedirectToActionPermanent("index"); ;
         }
         
         [HttpGet("Create")]
