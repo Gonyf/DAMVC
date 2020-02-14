@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using DAMVC.Models.DB;
 
-namespace DAMVC.Data
+namespace DAMVC.Interfaces
 {
     public interface IAuthRepository
     {

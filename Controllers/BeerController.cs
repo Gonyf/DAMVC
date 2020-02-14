@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DAMVC.Data;
 using DAMVC.DTO;
+using DAMVC.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DAMVC.Controllers
@@ -8,51 +8,51 @@ namespace DAMVC.Controllers
     [Route("[controller]")]
     public class BeerController : Controller
     {
-        private readonly IBeerRepository _repo;
-        public BeerController(IBeerRepository repository)
+        private readonly IBeerService _service;
+        public BeerController(IBeerService service)
         {
-            _repo = repository;
+            _service = service;
         }
 
         [HttpGet("Index")]
         public IActionResult Index()
         {
-            var beers = _repo.List();
+            var beers = _service.List();
             return View(beers);
         }
 
         [HttpGet("Edit")]
         public async Task<IActionResult> Edit(int id)
         {
-			var beer = await _repo.Get(id);
+			var beer = await _service.Get(id);
             return View(beer);
         }        
   
 		[HttpPost("Edit")]
-        public IActionResult Edit(BeerDTO beer)
+        public IActionResult Edit(Beer beer)
         {
-			_repo.Update(beer);
+            _service.Update(beer);
             return RedirectToActionPermanent(nameof(Details), beer);
         }
         
         [HttpGet("Details")]
         public async Task<IActionResult> Details(int id)
         {
-			var beer = await _repo.Get(id);
+			var beer = await _service.Get(id);
             return View(beer);
         }
         
         [HttpGet("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-			var beer = await _repo.Get(id);
+			var beer = await _service.Get(id);
             return View(beer);
         }
 
 		[HttpPost("Delete")]
-		public IActionResult Delete(BeerDTO beerDTO)
+		public IActionResult Delete(Beer beer)
         {
-			_repo.Delete(beerDTO);
+            _service.Delete(beer);
 			return RedirectToActionPermanent(nameof(Index));
         }
         
@@ -63,9 +63,9 @@ namespace DAMVC.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(BeerDTO beer)
+        public async Task<IActionResult> Create(Beer beer)
         {
-            await _repo.Create(beer);
+            await _service.Create(beer);
             return RedirectToActionPermanent(nameof(Details), new { beer.Id });
         }
     }

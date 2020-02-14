@@ -1,9 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using DAMVC.Data;
+using DAMVC.Interfaces;
 using DAMVC.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAMVC.Data
+namespace DAMVC.Repositories
 {
     public class AuthRepository : IAuthRepository
     {

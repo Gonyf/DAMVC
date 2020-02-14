@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAMVC.DTO
 {
-    public class BeerDTO
+    public class Beer
     {
         public int Id { get; set; }
         public string Name { get; set; }

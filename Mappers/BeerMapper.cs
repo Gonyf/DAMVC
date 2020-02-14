@@ -1,13 +1,14 @@
 ﻿using DAMVC.DTO;
 using DAMVC.Models.DB;
+using Beer = DAMVC.DTO.Beer;
 
 namespace DAMVC.Mappers
 {
     public static class BeerMapper
     {
-        public static BeerDTO ToBeerDTO(Beer beerDB)
+        public static Beer ToBeer(Models.DB.Beer beerDB)
         {
-            var beerDTO = new BeerDTO
+            var beerDTO = new Beer
             {
                 Id = beerDB.Id,
                 Name = beerDB.Name,
@@ -25,24 +26,24 @@ namespace DAMVC.Mappers
             return beerDTO;
         }
 
-        public static Beer ToDBBeer(BeerDTO beerDTO)
+        public static Models.DB.Beer ToDBBeer(Beer beer)
         {
-            var beer = new Beer
+            var dbBeer = new Models.DB.Beer
             {
-                Id = beerDTO.Id,
-                Name = beerDTO.Name,
-                Brewery = beerDTO.Brewery,
-                Country = beerDTO.Country,
-                AlcPercent = beerDTO.AlcPercent,
-                PerceivedBitterness = beerDTO.PerceivedBitterness,
-                PerceivedSweetness = beerDTO.PerceivedSweetness,
-                PerceivedFruitiness = beerDTO.PerceivedFruitiness,
-                ActualIBU = beerDTO.ActualIBU,
-                DrinkingTime = beerDTO.DrinkingTime,
-                SubmittedByUser = beerDTO.SubmittedByUser
+                Id = beer.Id,
+                Name = beer.Name,
+                Brewery = beer.Brewery,
+                Country = beer.Country,
+                AlcPercent = beer.AlcPercent,
+                PerceivedBitterness = beer.PerceivedBitterness,
+                PerceivedSweetness = beer.PerceivedSweetness,
+                PerceivedFruitiness = beer.PerceivedFruitiness,
+                ActualIBU = beer.ActualIBU,
+                DrinkingTime = beer.DrinkingTime,
+                SubmittedByUser = beer.SubmittedByUser
             };
 
-            return beer;
+            return dbBeer;
         }
     }
 }
