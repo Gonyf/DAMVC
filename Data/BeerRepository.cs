@@ -32,14 +32,24 @@ namespace DAMVC.Data
             return beer;
         }
 
-        public async Task<bool> Delete(int beerId)
+        public async void Delete(BeerDTO beer)
         {
-            throw new NotImplementedException();
+			_context.Beers.Remove(BeerMapper.ToDBBeer(beer));
+			await _context.SaveChangesAsync();
         }
 
-        public async Task<BeerDTO> Update(BeerDTO beer)
+        public async void Update(BeerDTO beer)
         {
-            throw new NotImplementedException();
+			_context.Beers.Update(BeerMapper.ToDBBeer(beer));
+
+			await _context.SaveChangesAsync();
         }
-    }
+
+		public async Task<BeerDTO> Get(int id)
+		{
+			var beer = await _context.Beers.FirstOrDefaultAsync(x => x.Id == id);
+			var beerDTO = BeerMapper.ToBeerDTO(beer);
+			return beerDTO;
+		}
+	}
 }
