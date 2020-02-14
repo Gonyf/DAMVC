@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAMVC.DTO;
@@ -13,9 +11,9 @@ namespace DAMVC.Data
     {
         private readonly DataContext _context;
 
-        public BeerRepository(DataContext Context)
+        public BeerRepository(DataContext context)
         {
-            _context = Context;
+            _context = context;
         }
 
         public IEnumerable<BeerDTO> List()
@@ -41,7 +39,6 @@ namespace DAMVC.Data
         public async void Update(BeerDTO beer)
         {
 			_context.Beers.Update(BeerMapper.ToDBBeer(beer));
-
 			await _context.SaveChangesAsync();
         }
 

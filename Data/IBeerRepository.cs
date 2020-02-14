@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DAMVC.DTO;
-using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {

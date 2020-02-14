@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DAMVC.Data;
 using DAMVC.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +29,10 @@ namespace DAMVC.Controllers
         }        
   
 		[HttpPost("Edit")]
-        public async Task<IActionResult> Edit(BeerDTO beer)
+        public IActionResult Edit(BeerDTO beer)
         {
 			_repo.Update(beer);
-            return RedirectToActionPermanent("Details", beer);
+            return RedirectToActionPermanent(nameof(Details), beer);
         }
         
         [HttpGet("Details")]
@@ -56,7 +53,7 @@ namespace DAMVC.Controllers
 		public IActionResult Delete(BeerDTO beerDTO)
         {
 			_repo.Delete(beerDTO);
-			return RedirectToActionPermanent("index"); ;
+			return RedirectToActionPermanent(nameof(Index));
         }
         
         [HttpGet("Create")]
@@ -69,7 +66,7 @@ namespace DAMVC.Controllers
         public async Task<IActionResult> Create(BeerDTO beer)
         {
             await _repo.Create(beer);
-            return RedirectToActionPermanent("Details","Beer", beer);
+            return RedirectToActionPermanent(nameof(Details), new { beer.Id });
         }
     }
 }
