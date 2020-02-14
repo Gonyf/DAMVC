@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAMVC.DTO;
 using DAMVC.Mappers;
-using DAMVC.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAMVC.Data
 {
@@ -12,14 +13,9 @@ namespace DAMVC.Data
     {
         private readonly DataContext _context;
 
-        public BeerRepository(DataContext context)
+        public BeerRepository(DataContext Context)
         {
-            _context = context;
-        }
-
-        public BeerDTO Get(int id)
-        {
-            return BeerMapper.ToBeerDTO(_context.Beers.FirstOrDefault(b => b.Id == id));
+            _context = Context;
         }
 
         public IEnumerable<BeerDTO> List()
@@ -36,36 +32,14 @@ namespace DAMVC.Data
             return beer;
         }
 
-        public async void Delete(int beerId)
+        public async Task<bool> Delete(int beerId)
         {
-            var toRemove = new Beer {Id = beerId};
-            _context.Beers.Attach(toRemove);
-            _context.Beers.Remove(toRemove);
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async void Update(BeerDTO beer)
+        public async Task<BeerDTO> Update(BeerDTO beer)
         {
-            var entity = _context.Beers.FirstOrDefault(b => b.Id == beer.Id);
-            if (entity == null)
-                throw new NullReferenceException($"beer with id {beer.Id} could not be found");
-                
-            UpdateBeerEntityFields(beer, entity);
-            _context.Beers.Update(entity);
-            await _context.SaveChangesAsync();
-        }
-
-        private void UpdateBeerEntityFields(BeerDTO beerDTO, Beer entity)
-        {
-            entity.ActualIBU = beerDTO.ActualIBU;
-            entity.AlcPercent = beerDTO.AlcPercent;
-            entity.Brewery = beerDTO.Brewery;
-            entity.Country = beerDTO.Country;
-            entity.DrinkingTime = beerDTO.DrinkingTime;
-            entity.Name = beerDTO.Name;
-            entity.PerceivedBitterness = beerDTO.PerceivedBitterness;
-            entity.PerceivedFruitiness = beerDTO.PerceivedFruitiness;
-            entity.PerceivedSweetness = beerDTO.PerceivedSweetness;
+            throw new NotImplementedException();
         }
     }
 }
