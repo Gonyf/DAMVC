@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAMVC.DTO;
 using DAMVC.Mappers;
-using Microsoft.EntityFrameworkCore;
+using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {
@@ -13,9 +12,14 @@ namespace DAMVC.Data
     {
         private readonly DataContext _context;
 
-        public BeerRepository(DataContext Context)
+        public BeerRepository(DataContext context)
         {
-            _context = Context;
+            _context = context;
+        }
+
+        public BeerDTO Get(int id)
+        {
+            return BeerMapper.ToBeerDTO(_context.Beers.FirstOrDefault(b => b.Id == id));
         }
 
         public IEnumerable<BeerDTO> List()
@@ -32,14 +36,36 @@ namespace DAMVC.Data
             return beer;
         }
 
-        public async Task<bool> Delete(int beerId)
+        public async void Delete(int beerId)
         {
-            throw new NotImplementedException();
+            var toRemove = new Beer {Id = beerId};
+            _context.Beers.Attach(toRemove);
+            _context.Beers.Remove(toRemove);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<BeerDTO> Update(BeerDTO beer)
+        public async void Update(BeerDTO beer)
         {
-            throw new NotImplementedException();
+            var entity = _context.Beers.FirstOrDefault(b => b.Id == beer.Id);
+            if (entity == null)
+                throw new NullReferenceException($"beer with id {beer.Id} could not be found");
+                
+            UpdateBeerEntityFields(beer, entity);
+            _context.Beers.Update(entity);
+            await _context.SaveChangesAsync();
+        }
+
+        private void UpdateBeerEntityFields(BeerDTO beerDTO, Beer entity)
+        {
+            entity.ActualIBU = beerDTO.ActualIBU;
+            entity.AlcPercent = beerDTO.AlcPercent;
+            entity.Brewery = beerDTO.Brewery;
+            entity.Country = beerDTO.Country;
+            entity.DrinkingTime = beerDTO.DrinkingTime;
+            entity.Name = beerDTO.Name;
+            entity.PerceivedBitterness = beerDTO.PerceivedBitterness;
+            entity.PerceivedFruitiness = beerDTO.PerceivedFruitiness;
+            entity.PerceivedSweetness = beerDTO.PerceivedSweetness;
         }
     }
 }
