@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using DAMVC.Models;
+using DAMVC.Models.DB;
 
 namespace DAMVC.Data
 {

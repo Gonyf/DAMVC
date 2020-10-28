@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAMVC.Data;
 using DAMVC.DTO;
-using DAMVC.Models;
+using DAMVC.Models.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +36,13 @@ namespace DAMVC.Controllers
             return View();
         }
 
+        [HttpGet("Logoff")]
+        public IActionResult Logoff()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("~/Home/Index");
+        }
+
         [HttpGet("Register")]
         public IActionResult Register()
         {
@@ -46,16 +53,11 @@ namespace DAMVC.Controllers
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDto)
         {
             // validate request
+            CustomRegisterValidation(userForRegisterDto);
             if (!ModelState.IsValid)
                 return View();
 
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _repo.UserExists(userForRegisterDto.Username))
-            {
-                ModelState.AddModelError("UserName", "User name is already taken");
-                return View();
-            }
 
             var userToCreate = new User
             {
@@ -72,7 +74,7 @@ namespace DAMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //AddErrorsFromModel(ModelState.Values);
+                AddErrorsFromModel(ModelState.Values);
                 return View();
             }
             userForLoginDto.Username = userForLoginDto.Username.ToLower();
@@ -110,19 +112,23 @@ namespace DAMVC.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionToken);
             HttpContext.Session.SetString("JWToken", sessionToken);
 
-            return Ok(client.DefaultRequestHeaders.Authorization.Parameter + client.DefaultRequestHeaders.Authorization.Scheme);
+            return RedirectToActionPermanent("Index","User");
         }
         private void AddErrorsFromModel(ModelStateDictionary.ValueEnumerable values)
         {
             foreach (var error in values.SelectMany(modelState => modelState.Errors))
             {
-                ModelState.AddModelError(string.Empty, error.ErrorMessage.ToString());
+                ModelState.AddModelError(string.Empty, error.ErrorMessage);
             }
         }
 
-        private void AddError(string errorMessage)
+        private async void CustomRegisterValidation(UserForRegisterDTO userForRegisterDto)
         {
-            ModelState.AddModelError("UserName", errorMessage);
+            if (string.IsNullOrEmpty(userForRegisterDto.Username))
+                return;
+
+            if (await _repo.UserExists(userForRegisterDto.Username.ToLower()))
+                ModelState.AddModelError("UserName", "User name is already taken");
         }
     }
 }
