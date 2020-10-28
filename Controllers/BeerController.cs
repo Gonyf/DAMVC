@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using DAMVC.DTO;
 using DAMVC.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DAMVC.Controllers
 {
     [Route("[controller]")]
-    public class BeerController : Controller
+	[Authorize]
+	public class BeerController : Controller
     {
         private readonly IBeerService _service;
         public BeerController(IBeerService service)
