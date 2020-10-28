@@ -6,8 +6,8 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using DAMVC.Data;
 using DAMVC.DTO;
+using DAMVC.Interfaces;
 using DAMVC.Models.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace DAMVC.Controllers
 {
     [Route("[controller]")]
-    //[ApiController]
     public class AuthController : Controller
     {
         private readonly IConfiguration _configuration;

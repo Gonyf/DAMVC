@@ -1,6 +1,10 @@
 using System;
 using System.Text;
 using DAMVC.Data;
+using DAMVC.Interfaces;
+using DAMVC.Repositories;
+using DAMVC.Resolvers;
+using DAMVC.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +32,10 @@ namespace DAMVC
            
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IBeerRepository, BeerRepository>();
+            services.AddScoped<IBeerService, BeerService>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserResolver, CurrentUserResolver>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
