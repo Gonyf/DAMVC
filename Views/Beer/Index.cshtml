@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DAMVC.DTO.Beer>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brewery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlcPercent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerceivedBitterness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerceivedSweetness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerceivedFruitiness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualIBU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrinkingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubmittedByUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brewery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlcPercent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerceivedBitterness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerceivedSweetness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerceivedFruitiness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualIBU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrinkingTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmittedByUser)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,69 @@
+﻿@model DAMVC.Models.DB.Beer
+
+<h4>Beer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brewery" class="control-label"></label>
+                <input asp-for="Brewery" class="form-control" />
+                <span asp-validation-for="Brewery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlcPercent" class="control-label"></label>
+                <input asp-for="AlcPercent" class="form-control" />
+                <span asp-validation-for="AlcPercent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PerceivedBitterness" class="control-label"></label>
+                <input asp-for="PerceivedBitterness" class="form-control" />
+                <span asp-validation-for="PerceivedBitterness" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PerceivedSweetness" class="control-label"></label>
+                <input asp-for="PerceivedSweetness" class="form-control" />
+                <span asp-validation-for="PerceivedSweetness" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PerceivedFruitiness" class="control-label"></label>
+                <input asp-for="PerceivedFruitiness" class="form-control" />
+                <span asp-validation-for="PerceivedFruitiness" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualIBU" class="control-label"></label>
+                <input asp-for="ActualIBU" class="form-control" />
+                <span asp-validation-for="ActualIBU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DrinkingTime" class="control-label"></label>
+                <input asp-for="DrinkingTime" class="form-control" />
+                <span asp-validation-for="DrinkingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmittedByUser" class="control-label"></label>
+                <input asp-for="SubmittedByUser" class="form-control" />
+                <span asp-validation-for="SubmittedByUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

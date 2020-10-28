@@ -16,7 +16,48 @@ namespace DAMVC.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
-            modelBuilder.Entity("DAMVC.Models.User", b =>
+            modelBuilder.Entity("DAMVC.Models.DB.Beer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("ActualIBU")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("AlcPercent")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Brewery")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DrinkingTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float?>("PerceivedBitterness")
+                        .HasColumnType("REAL");
+
+                    b.Property<float?>("PerceivedFruitiness")
+                        .HasColumnType("REAL");
+
+                    b.Property<float?>("PerceivedSweetness")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("SubmittedByUser")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Beers");
+                });
+
+            modelBuilder.Entity("DAMVC.Models.DB.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +77,7 @@ namespace DAMVC.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DAMVC.Models.Value", b =>
+            modelBuilder.Entity("DAMVC.Models.DB.Value", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
